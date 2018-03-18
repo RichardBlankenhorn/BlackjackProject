@@ -1,4 +1,4 @@
-package com.skilldistillery.blackjack;
+package com.skilldistillery.cards.common;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -24,7 +24,6 @@ private List<Card> s = new ArrayList<>();
 	}
 	
 	public Card dealCard() {
-		//shuffle();
 		return this.s.remove(0);
 	}
 	
