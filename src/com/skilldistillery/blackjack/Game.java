@@ -3,7 +3,6 @@ package com.skilldistillery.blackjack;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-
 import com.skilldistillery.cards.common.Card;
 import com.skilldistillery.cards.common.Deck;
 
@@ -48,7 +47,7 @@ public class Game {
 
 		// Print out the players cards and the house cards
 		printPlayerCards();
-		printHouseCards();
+		//printHouseCards();
 
 		// Continuous Game Play for the player (hit or stay options)
 		playerTurn();
@@ -73,9 +72,9 @@ public class Game {
 					System.out.println("The game is over.");
 				}
 			} else if (response.equals("1")) {
+				//printBothHands();
 				printPlayerCards();
-				printHouseCards();
-				System.out.println("It is now the dealers turn");
+				System.out.println("\n********** It is now the dealers turn **********");
 				notBust = false;
 			}
 		}
@@ -88,9 +87,8 @@ public class Game {
 				dealAdditionalCard(1);
 				if (house.getValueOfHand() > 21) {
 					notBust = false;
-					printPlayerCards();
-					printHouseFullHand();
-					System.out.println("The dealer busts, you win!!!!");
+					printAllForBoth();
+					System.out.println("\nThe dealer busts, you win!!!!");
 				}
 			}
 			else if (house.getValueOfHand() >= 17) {
@@ -103,19 +101,15 @@ public class Game {
 	private void verifyWinner() {
 		if ((player1.getValueOfHand() > house.getValueOfHand()) && player1.getValueOfHand() < 22) {
 			System.out.println(player1.getName() + " won the round!\n");
-			printPlayerCards();
-			System.out.println("\n" + house.getHand());
-			System.out.println("The house has a total of " + house.getValueOfHand());
+			printAllForBoth();
 			
 		}
 		else if ((player1.getValueOfHand() < house.getValueOfHand()) && house.getValueOfHand() < 22) {
-			System.out.println("The house wins:(");
-			printPlayerCards();
-			System.out.println("\n" + house.getHand());
-			System.out.println("The house has a total of " + house.getValueOfHand());
+			printAllForBoth();
+			System.out.println("\nThe house wins:(");
 		}
 		else {
-			System.out.println("You both have the same score");
+			System.out.println("You both have the same score. Draw");
 		}
 		
 	}
@@ -162,19 +156,17 @@ public class Game {
 	}
 
 	private void printPlayerCards() {
-		System.out.println("\n------------ Your Hand ------------");
-		System.out.println(player1.getHand());
-		printTotalCardValue(player1);
+		System.out.println(String.format("\n%60s %2s %60s %2s", "PLAYER HAND", "|", "HOUSE HAND", "|"));
+		System.out.println(String.format("%s", "-------------------------------------------------------------------------------------------------------------------------------"));
+		System.out.println(String.format("%60s %2s %60s %2s", player1.getHand(), "|", house.getHand().get(1) + ", *********", "|"));
+		System.out.println(String.format("%60s %2s %60s %2s", "Hand value is " + player1.getValueOfHand(), "|", "House is showing " + house.getHand().get(1).getValue(), "|"));
 	}
-
-	private void printHouseCards() {
-		System.out.println("\n---------- House Cards ----------");
-		System.out.println("[" + house.getHand().get(1) + ", ************]");
-		System.out.println("The house is showing " + house.getHand().get(1).getValue());
-	}
-
-	private void printTotalCardValue(Player player) {
-		System.out.println("The total value of the cards is " + player.getValueOfHand());
+	
+	private void printAllForBoth() {
+		System.out.println(String.format("\n%60s %2s %60s %2s", "PLAYER HAND", "|", "HOUSE HAND", "|"));
+		System.out.println(String.format("%s", "-------------------------------------------------------------------------------------------------------------------------------"));
+		System.out.println(String.format("%60s %2s %60s %2s", player1.getHand(), "|", house.getHand(), "|"));
+		System.out.println(String.format("%60s %2s %60s %2s", "Hand value is " + player1.getValueOfHand(), "|", "Hand value is " + house.getValueOfHand(), "|"));
 	}
 	
 	private void optionMenu() {
@@ -185,9 +177,9 @@ public class Game {
 			v = responseValidation();
 		}
 		if (Integer.parseInt(response) == 1) {
-			System.out.println("Stay");
+			//System.out.println("Stay");
 		} else if (Integer.parseInt(response) == 2) {
-			System.out.println("Hit");
+			//System.out.println("Hit");
 		}
 	}
 
@@ -241,7 +233,7 @@ public class Game {
 			houseCards.addCard(deck.dealCard());
 		}
 		else if (val == 2){
-			myCards.addCard(deck.dealCard());
+			player1.getHand().add(deck.dealCard());
 			printPlayerCards();
 			verifyBustOrNot();
 		}
@@ -249,9 +241,9 @@ public class Game {
 
 	private void verifyBustOrNot() {
 		if (player1.getValueOfHand() > 21) {
-			System.out.print("You bust. ");
+			System.out.print("\nYou bust. ");
 		} else {
-			System.out.print("You are ok. ");
+			System.out.print("\nYou are ok. ");
 			// printTotalCardValue();
 		}
 	}
