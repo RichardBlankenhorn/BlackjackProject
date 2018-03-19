@@ -26,7 +26,8 @@ public class Game {
 		obtainNameAndWallet();
 
 		// Continuous game play
-		// Player will continue to be dealt hands until they choose to quite after a hand
+		// Player will continue to be dealt hands until they choose to quite after a
+		// hand
 		while (true) {
 			bust = false;
 			gameMenu();
@@ -53,7 +54,8 @@ public class Game {
 
 	// This method will provide a menu to the player (hit or stay)
 	// If the player hits, they will be dealt a new card
-	// If their hand exceeds 21 in value, they bust and the bust variable is set to true
+	// If their hand exceeds 21 in value, they bust and the bust variable is set to
+	// true
 	// Otherwise, a message will display stating it is the dealers turn
 	public void playerTurn() {
 		while (true) {
@@ -73,8 +75,10 @@ public class Game {
 		}
 	}
 
-	// This method will cause the dealer receive a card if their hand value is under 17
-	// If the dealer hand is 17 or greater, no further cards will be dealt and the verifyWinner() method is called.
+	// This method will cause the dealer receive a card if their hand value is under
+	// 17
+	// If the dealer hand is 17 or greater, no further cards will be dealt and the
+	// verifyWinner() method is called.
 	public void houseTurn() {
 		while (true) {
 			if (house.getValueOfHand() < 17) {
@@ -84,12 +88,69 @@ public class Game {
 					printAllForBoth();
 					break;
 				}
-			} 
-			else if (house.getValueOfHand() >= 17) {
+			} else if (house.getValueOfHand() >= 17) {
 				verifyWinner();
 				break;
 			}
 		}
+	}
+
+	// Deal out cards for the player (only 2)
+	// In addition, set the player name and wallet initially
+	private void dealCardsForPlayer() {
+		player1.setHand(new Hand());
+		for (int i = 0; i < 2; i++) {
+			if (deck.getSize() == 0) {
+				newDeckAndShuffle();
+			}
+			player1.getHand().add(deck.dealCard());
+		}
+	}
+
+	// Deal the cards for the house
+	private void dealCardsForHouse() {
+		house.setHand(new Hand());
+		for (int i = 0; i < 2; i++) {
+			if (deck.getSize() == 0) {
+				newDeckAndShuffle();
+			}
+			house.getHand().add(deck.dealCard());
+		}
+	}
+
+	// When called, this method will deal a new card
+	// Before a new card is dealt, the size of the deck will be verified
+	// If the deck size is 0, the newDeckAndShuffle() method is called
+	// After a new card is dealt, the cards are shown
+	// The new hand will be verified if the value is over 21
+	private void dealAdditionalCard(int val) {
+		if (val == 1) {
+			if (deck.getSize() == 0) {
+				newDeckAndShuffle();
+			}
+			house.getHand().add(deck.dealCard());
+			printPlayerCards();
+			verifyBustOrNot();
+		} else if (val == 2) {
+			if (deck.getSize() == 0) {
+				newDeckAndShuffle();
+			}
+			player1.getHand().add(deck.dealCard());
+			printPlayerCards();
+			verifyBustOrNot();
+		}
+	}
+
+	// This method verifies if the player or house hand is a bust
+	private void verifyBustOrNot() {
+		if (player1.getValueOfHand() > 21) {
+			bust = true;
+			printAllForBoth();
+		} else if (house.getValueOfHand() > 21) {
+			bust = true;
+			printAllForBoth();
+		}
+
 	}
 
 	// This method will verify the winner of the hand
@@ -179,29 +240,6 @@ public class Game {
 		deck.shuffle();
 	}
 
-	// Deal out cards for the player (only 2)
-	// In addition, set the player name and wallet initially
-	private void dealCardsForPlayer() {
-		player1.setHand(new Hand());
-		for (int i = 0; i < 2; i++) {
-			if (deck.getSize() == 0) {
-				newDeckAndShuffle();
-			}
-			player1.getHand().add(deck.dealCard());
-		}
-	}
-
-	// Deal the cards for the house
-	private void dealCardsForHouse() {
-		house.setHand(new Hand());
-		for (int i = 0; i < 2; i++) {
-			if (deck.getSize() == 0) {
-				newDeckAndShuffle();
-			}
-			house.getHand().add(deck.dealCard());
-		}
-	}
-	
 	// This method will create a new deck and shuffle the deck
 	private void newDeckAndShuffle() {
 		deck = new Deck();
@@ -222,12 +260,11 @@ public class Game {
 					k = true;
 					System.out.println("\nValue entered is no valid");
 					break;
-				} 
-				else if (Character.getNumericValue(response.toCharArray()[0]) > 2 || Character.getNumericValue(response.toCharArray()[0]) < 1) {
+				} else if (Character.getNumericValue(response.toCharArray()[0]) > 2
+						|| Character.getNumericValue(response.toCharArray()[0]) < 1) {
 					k = true;
 					System.out.println("\nThe value entered is not valid");
-				}
-				else {
+				} else {
 					k = false;
 					break;
 				}
@@ -236,38 +273,4 @@ public class Game {
 		return k;
 	}
 
-	// When called, this method will deal a new card
-	// Before a new card is dealt, the size of the deck will be verified
-	// If the deck size is 0, the newDeckAndShuffle() method is called
-	// After a new card is dealt, the cards are shown
-	// The new hand will be verified if the value is over 21
-	private void dealAdditionalCard(int val) {
-		if (val == 1) {
-			if (deck.getSize() == 0) {
-				newDeckAndShuffle();
-			}
-			house.getHand().add(deck.dealCard());
-			printPlayerCards();
-			verifyBustOrNot();
-		} else if (val == 2) {
-			if (deck.getSize() == 0) {
-				newDeckAndShuffle();
-			}
-			player1.getHand().add(deck.dealCard());
-			printPlayerCards();
-			verifyBustOrNot();
-		}
-	}
-
-	// This method verifies if the player or house hand is a bust
-	private void verifyBustOrNot() {
-		if (player1.getValueOfHand() > 21) {
-			bust = true;
-			printAllForBoth();
-		} else if (house.getValueOfHand() > 21) {
-			bust = true;
-			printAllForBoth();
-		}
-
-	}
 }
