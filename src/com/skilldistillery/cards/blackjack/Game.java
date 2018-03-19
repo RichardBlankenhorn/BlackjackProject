@@ -24,7 +24,7 @@ public class Game {
 
 		// Obtain player name and their wallet size
 		obtainNameAndWallet();
-		
+
 		// Shuffle deck before play
 		deckShuffle();
 
@@ -65,12 +65,12 @@ public class Game {
 			if (response.equals("2")) {
 				dealAdditionalCard(2);
 				if (player1.getValueOfHand() > 21) {
-					//printAllForBoth();
+					// printAllForBoth();
 					bust = true;
 					break;
 				}
 			} else if (response.equals("1")) {
-				//printPlayerCards();
+				// printPlayerCards();
 				System.out.println("\n********** It is now the dealers turn **********");
 				break;
 			}
@@ -87,7 +87,7 @@ public class Game {
 				dealAdditionalCard(1);
 				if (house.getValueOfHand() > 21) {
 					bust = true;
-					//printAllForBoth();
+					// printAllForBoth();
 					break;
 				}
 			} else if (house.getValueOfHand() >= 17) {
@@ -131,7 +131,7 @@ public class Game {
 				newDeckAndShuffle();
 			}
 			house.getHand().add(deck.dealCard());
-			printPlayerCards();
+			// printPlayerCards();
 			verifyBustOrNot();
 		} else if (val == 2) {
 			if (deck.getSize() == 0) {
@@ -169,7 +169,8 @@ public class Game {
 
 	}
 
-	// This method will ask the user for their name and wallet size (amount available to bet)
+	// This method will ask the user for their name and wallet size (amount
+	// available to bet)
 	private void obtainNameAndWallet() {
 		System.out.print("Please enter your name: ");
 		player1.setName(kb.nextLine());
@@ -186,7 +187,8 @@ public class Game {
 
 	// This method provides a game menu for the player
 	// The player may choose to deal or quite the game
-	// The responseValidation() method is called to verify user input is within valid range
+	// The responseValidation() method is called to verify user input is within
+	// valid range
 	private void gameMenu() {
 		boolean v = true;
 		while (v) {
@@ -200,24 +202,26 @@ public class Game {
 		}
 	}
 
-	// Print player and house cards along with hand value, although only one card shows for the house
+	// Print player and house cards along with hand value, although only one card
+	// shows for the house
 	private void printPlayerCards() {
-		System.out.println(String.format("\n%60s %2s %60s %2s", "PLAYER HAND", "|", "HOUSE HAND", "|"));
+		System.out.println(String.format("\n%62s %2s %62s %2s", "PLAYER HAND", "|", "HOUSE HAND", "|"));
 		System.out.println(String.format("%s",
-				"-------------------------------------------------------------------------------------------------------------------------------"));
-		System.out.println(String.format("%60s %2s %60s %2s", player1.getHand(), "|",
+				"------------------------------------------------------------------------------------------------------------------------------------"));
+		System.out.println(String.format("%62s %2s %62s %2s", player1.getHand(), "|",
 				house.getHand().get(1) + ", *********", "|"));
-		System.out.println(String.format("%60s %2s %60s %2s", "Hand value is " + player1.getValueOfHand(), "|",
+		System.out.println(String.format("%62s %2s %62s %2s", "Hand value is " + player1.getValueOfHand(), "|",
 				"House is showing " + house.getHand().get(1).getValue(), "|"));
 	}
 
-	// Print player and house cards, this time printing all cards for the house and total hand value
+	// Print player and house cards, this time printing all cards for the house and
+	// total hand value
 	private void printAllForBoth() {
-		System.out.println(String.format("\n%60s %2s %60s %2s", "PLAYER HAND", "|", "HOUSE HAND", "|"));
+		System.out.println(String.format("\n%62s %2s %62s %2s", "PLAYER HAND", "|", "HOUSE HAND", "|"));
 		System.out.println(String.format("%s",
-				"-------------------------------------------------------------------------------------------------------------------------------"));
-		System.out.println(String.format("%60s %2s %60s %2s", player1.getHand(), "|", house.getHand(), "|"));
-		System.out.println(String.format("%60s %2s %60s %2s", "Hand value is " + player1.getValueOfHand(), "|",
+				"------------------------------------------------------------------------------------------------------------------------------------"));
+		System.out.println(String.format("%62s %2s %62s %2s", player1.getHand(), "|", house.getHand(), "|"));
+		System.out.println(String.format("%62s %2s %62s %2s", "Hand value is " + player1.getValueOfHand(), "|",
 				"Hand value is " + house.getValueOfHand(), "|"));
 	}
 
