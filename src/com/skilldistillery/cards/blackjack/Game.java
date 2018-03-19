@@ -1,4 +1,4 @@
-package com.skilldistillery.blackjack;
+package com.skilldistillery.cards.blackjack;
 
 import java.util.Scanner;
 import com.skilldistillery.cards.common.Deck;
