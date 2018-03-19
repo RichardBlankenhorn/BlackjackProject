@@ -32,7 +32,7 @@ private List<Card> s = new ArrayList<>();
 	}
 	
 	public int getSize() {
-		return s.size();
+		return this.s.size();
 	}
 
 }
