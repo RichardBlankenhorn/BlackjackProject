@@ -24,6 +24,9 @@ public class Game {
 
 		// Obtain player name and their wallet size
 		obtainNameAndWallet();
+		
+		// Shuffle deck before play
+		deckShuffle();
 
 		// Continuous game play
 		// Player will continue to be dealt hands until they choose to quite after a
@@ -35,7 +38,6 @@ public class Game {
 				System.out.println("Goodbye! Thanks for playing");
 				break;
 			}
-			deckShuffle();
 			dealCardsForPlayer();
 			dealCardsForHouse();
 			printPlayerCards();
@@ -63,12 +65,12 @@ public class Game {
 			if (response.equals("2")) {
 				dealAdditionalCard(2);
 				if (player1.getValueOfHand() > 21) {
-					printAllForBoth();
+					//printAllForBoth();
 					bust = true;
 					break;
 				}
 			} else if (response.equals("1")) {
-				printPlayerCards();
+				//printPlayerCards();
 				System.out.println("\n********** It is now the dealers turn **********");
 				break;
 			}
@@ -85,7 +87,7 @@ public class Game {
 				dealAdditionalCard(1);
 				if (house.getValueOfHand() > 21) {
 					bust = true;
-					printAllForBoth();
+					//printAllForBoth();
 					break;
 				}
 			} else if (house.getValueOfHand() >= 17) {
@@ -145,7 +147,6 @@ public class Game {
 	private void verifyBustOrNot() {
 		if (player1.getValueOfHand() > 21) {
 			bust = true;
-			printAllForBoth();
 		} else if (house.getValueOfHand() > 21) {
 			bust = true;
 			printAllForBoth();
