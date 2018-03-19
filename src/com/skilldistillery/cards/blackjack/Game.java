@@ -169,17 +169,7 @@ public class Game {
 
 	}
 
-	/*
-	 * The following section contains methods for printing out menus and obtaining
-	 * user information 1. The obtainNameAndWallet() method will ask the user for
-	 * their name and their wallet size or money 2. The greeting() method will
-	 * simply display a greeting for the game 3. The gameMenu() method will ask the
-	 * player if they would like to deal cards or quite the game 4. The
-	 * printPlayerCards() method will print out the hand of the player along with
-	 * the total value of their cards 5. The printHouseCards() method will print out
-	 * the cards for the house (only 1) and display the value of the card showing
-	 */
-
+	// This method will ask the user for their name and wallet size (amount available to bet)
 	private void obtainNameAndWallet() {
 		System.out.print("Please enter your name: ");
 		player1.setName(kb.nextLine());
@@ -187,12 +177,16 @@ public class Game {
 		player1.setWallet(kb.nextDouble());
 	}
 
+	// This method prints a simple greeting when the game starts
 	private void greeting() {
 		System.out.println("*********************************************");
 		System.out.println("*********** Welcome to BlackJack! ***********");
 		System.out.println("*********************************************");
 	}
 
+	// This method provides a game menu for the player
+	// The player may choose to deal or quite the game
+	// The responseValidation() method is called to verify user input is within valid range
 	private void gameMenu() {
 		boolean v = true;
 		while (v) {
@@ -206,6 +200,7 @@ public class Game {
 		}
 	}
 
+	// Print player and house cards along with hand value, although only one card shows for the house
 	private void printPlayerCards() {
 		System.out.println(String.format("\n%60s %2s %60s %2s", "PLAYER HAND", "|", "HOUSE HAND", "|"));
 		System.out.println(String.format("%s",
@@ -216,6 +211,7 @@ public class Game {
 				"House is showing " + house.getHand().get(1).getValue(), "|"));
 	}
 
+	// Print player and house cards, this time printing all cards for the house and total hand value
 	private void printAllForBoth() {
 		System.out.println(String.format("\n%60s %2s %60s %2s", "PLAYER HAND", "|", "HOUSE HAND", "|"));
 		System.out.println(String.format("%s",
