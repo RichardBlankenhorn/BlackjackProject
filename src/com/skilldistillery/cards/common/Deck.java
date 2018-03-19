@@ -30,5 +30,9 @@ private List<Card> s = new ArrayList<>();
 	public void shuffle() {
 		Collections.shuffle(s);
 	}
+	
+	public int getSize() {
+		return s.size();
+	}
 
 }

@@ -7,7 +7,7 @@ import com.skilldistillery.cards.common.Card;
 public class Player {
 
 	private String name;
-	private Hand hand;
+	private Hand hand = new Hand();;
 	private double wallet;
 	
 	public Player() {
